@@ -406,7 +406,8 @@ tr:nth-child(even) {
 .enhanced-tabs input[type="radio"]:nth-of-type(2):checked ~ #content2,
 .enhanced-tabs input[type="radio"]:nth-of-type(3):checked ~ #content3,
 .enhanced-tabs input[type="radio"]:nth-of-type(4):checked ~ #content4,
-.enhanced-tabs input[type="radio"]:nth-of-type(5):checked ~ #content5 {
+.enhanced-tabs input[type="radio"]:nth-of-type(5):checked ~ #content5,
+.enhanced-tabs input[type="radio"]:nth-of-type(6):checked ~ #content6 {
     display: block;
 }
 
