@@ -99,6 +99,7 @@
             <input id="tab3" type="radio" name="tabs">
             <input id="tab4" type="radio" name="tabs">
             <input id="tab5" type="radio" name="tabs">
+            <input id="tab6" type="radio" name="tabs">
             
             <div class="tab-header">
                 <label for="tab1">👥 Accounts</label>
@@ -106,6 +107,7 @@
                 <label for="tab3">📦 Items</label>
                 <label for="tab4">🙋 Volunteers</label>
                 <label for="tab5">🎵 Music</label>
+                <label for="tab6">➕ Register User</label>
             </div>
 
             <div class="content tab-content" id="content1">
@@ -231,6 +233,28 @@
                     </thead>
                     <tbody id="musicTable"></tbody>
                 </table>
+            </div>
+
+            <div class="content tab-content" id="content6"><h3>User Registration</h3>
+                <form id="registerUserForm">
+                    <div class="form-group">
+                        <label for="registerName">Name</label>
+                        <input type="text" id="registerName" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" placeholder="Enter email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" placeholder="Enter password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerRole">Role (Optional)</label>
+                        <input type="text" id="registerRole" placeholder="Enter role (e.g., admin)">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="registerUserBtn">Register User</button>
+                </form>
             </div>
         </div>
     </div>

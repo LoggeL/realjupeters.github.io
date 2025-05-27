@@ -85,6 +85,75 @@ class PoolpartyAdmin {
         }
     }
 
+    // ➕ Register User
+    async registerUser() {
+        const nameInput = document.getElementById('registerName');
+        const emailInput = document.getElementById('registerEmail');
+        const passwordInput = document.getElementById('registerPassword');
+        const roleInput = document.getElementById('registerRole');
+
+        const nameValue = nameInput.value.trim();
+        const emailValue = emailInput.value.trim();
+        const passwordValue = passwordInput.value.trim();
+        const roleValue = roleInput.value.trim();
+
+        // Basic validation
+        if (!nameValue || !emailValue || !passwordValue) {
+            this.showNotification('Name, Email, and Password are required.', 'error');
+            return;
+        }
+        if (!emailValue.includes('@') || !emailValue.includes('.')) {
+            this.showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
+        if (passwordValue.length < 8) {
+            this.showNotification('Password must be at least 8 characters long.', 'error');
+            return;
+        }
+
+        const userData = {
+            name: nameValue,
+            email: emailValue,
+            password: passwordValue,
+        };
+        if (roleValue) {
+            userData.role = roleValue;
+        }
+
+        try {
+            await this.apiCall('admin/register', {
+                method: 'POST',
+                body: JSON.stringify(userData)
+            });
+            this.showNotification('User registered successfully!', 'success');
+            
+            // Reset the form
+            const registerForm = document.getElementById('registerUserForm');
+            if (registerForm) {
+                registerForm.reset();
+            }
+
+            // Switch to accounts tab
+            const accountsTabRadio = document.getElementById('tab1');
+            if (accountsTabRadio) {
+                accountsTabRadio.checked = true;
+                // Dispatch a change event to trigger tab switching logic
+                const changeEvent = new Event('change', { bubbles: true });
+                accountsTabRadio.dispatchEvent(changeEvent);
+            }
+
+            // Refresh all data, which will re-render tables including the new account
+            await this.loadAllData();
+            // The tab switching logic and loadAllData should handle re-rendering.
+            // If needed, one could force it:
+            // this.state.currentTab = 'account';
+            // this.renderTable('account');
+
+        } catch (error) {
+            this.showNotification(error.message || 'Failed to register user.', 'error');
+        }
+    }
+
     // 📊 Data Loading
     async loadAllData() {
         console.log('📊 Loading all data...');
@@ -165,6 +234,12 @@ class PoolpartyAdmin {
     }
 
     renderTable(section) {
+        if (section === 'register') {
+            console.log(`🎯 Section is 'register', skipping table rendering.`);
+            // Ensure loading states are handled if they were set for 'register'
+            this.setLoading('register', false); 
+            return;
+        }
         console.log(`🎯 Rendering table for section: ${section}`);
         
         const { data } = this.state;
@@ -684,17 +759,30 @@ class PoolpartyAdmin {
         document.querySelectorAll('input[name="tabs"]').forEach(tab => {
             tab.addEventListener('change', (e) => {
                 if (e.target.checked) {
-                    const sections = ['account', 'registration', 'item', 'volunteer', 'music'];
-                    const section = sections[parseInt(e.target.id.replace('tab', '')) - 1];
-                    this.state.currentTab = section;
+                    const sections = ['account', 'registration', 'item', 'volunteer', 'music', 'register']; // Added 'register'
+                    const tabIndex = parseInt(e.target.id.replace('tab', '')) - 1;
                     
-                    console.log(`🔄 Switching to tab: ${section}`);
-                    
-                    // Re-render the selected table
-                    setTimeout(() => {
-                        this.renderTable(section);
-                        console.log(`✅ ${section} tab rendered`);
-                    }, 100);
+                    if (tabIndex < sections.length) {
+                        const section = sections[tabIndex];
+                        this.state.currentTab = section;
+                        console.log(`🔄 Switching to tab: ${section}`);
+
+                        // Re-render the selected table or handle static tab
+                        setTimeout(() => {
+                            if (section !== 'register') {
+                                this.renderTable(section);
+                                console.log(`✅ ${section} tab rendered`);
+                            } else {
+                                // For 'register' tab, content is static, ensure no loading indicators interfere
+                                console.log(`✅ 'register' tab is static, no table rendering needed.`);
+                                // Hide any potential loading spinners for other sections if they were active
+                                Object.keys(this.dataMapping).forEach(key => this.setLoading(key, false));
+                                this.setLoading('music', false); // music is special
+                            }
+                        }, 100);
+                    } else {
+                        console.warn(`⚠️ Tab index ${tabIndex} out of bounds for sections array.`);
+                    }
                 }
             });
         });
@@ -723,6 +811,15 @@ class PoolpartyAdmin {
         if (deleteAllVolunteersBtn) {
             deleteAllVolunteersBtn.addEventListener('click', () => {
                 this.showBulkDeleteConfirm('volunteer');
+            });
+        }
+
+        // User Registration form
+        const registerUserForm = document.getElementById('registerUserForm');
+        if (registerUserForm) {
+            registerUserForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                this.registerUser();
             });
         }
     }
