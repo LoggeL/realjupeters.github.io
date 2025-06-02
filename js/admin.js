@@ -281,7 +281,7 @@ class PoolpartyAdmin {
                     <td>${this.createStatusBadge(acc.verifiedMail)}</td>
                     <td>${acc.roles || ''}</td>
                     <td>${this.formatDate(acc.lastActivity)}</td>
-                    <td><button class="action-btn btn-danger" onclick="admin.showDeleteConfirm('account', acc.id, acc.name)">Delete</button></td>
+                    <td><button class="action-btn btn-danger" onclick="admin.showDeleteConfirm('account', ${acc.id}, '${String(acc.name).replace(/'/g, "\\'")}')">Delete</button></td>
                 </tr>`,
             
             registration: (reg) => `
