@@ -509,7 +509,7 @@ class PoolpartyAdmin {
             registration: `admin/poolparty/registration/${id}`,
             item: `admin/poolparty/item/${id}`,
             volunteer: `admin/poolparty/volunteer/${id}`,
-            account: `admin/poolparty/account/${id}` // New entry
+            account: `admin/register/${id}` // Changed line
         };
 
         try {
