@@ -20,7 +20,6 @@
     <meta property="og:type" content="website" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/paper.min.css" />
     <link rel="stylesheet" href="css/main.css" />
 
     <!-- Favicon -->
@@ -29,7 +28,7 @@
 
   <body>
     <!-- Header -->
-    <nav class="border split-nav no-border fixed">
+    <nav class="border split-nav fixed">
       <div class="nav-brand">
         <h3><a href="#">JP Poolparty</a></h3>
       </div>
@@ -80,13 +79,13 @@
       </div>
       <div class="row flex-center padding-bottom-large">
         <div class="col sm-5">
-          <object data="jpLogo.svg" type="image/svg+xml" alt="JP Logo" class="no-border">
+          <object data="jpLogo.svg" type="image/svg+xml" alt="JP Logo">
             <img src="jpLogo.svg" alt="JP Logo" class="no-brder"/>
           </object>
         </div>
         <div class="col sm-5">
-          <object data="kolpingLogo.svg" type="image/svg+xml" alt="Kolping Logo" class="no-border">
-            <img src="kolpingLogo.svg" alt="Kolping Logo" class="no-border" />
+          <object data="kolpingLogo.svg" type="image/svg+xml" alt="Kolping Logo">
+            <img src="kolpingLogo.svg" alt="Kolping Logo"/>
           </object>
         </div>
       </div>
@@ -329,41 +328,44 @@
           <li>Fertig!</li>
         </ol>
 
-        <div class="row hideForGuest">
+        <div class="hideForGuest">
           <div class="alert alert-secondary" id="personName"></div>
-          <div id="anmeldenForm" class="row">
-            <div class="sm-12 md-6 col">
-              <div class="form-group">
-                <label for="itemInput">Mitbringen</label>
-                <select id="itemInput" class="input-block">
-                  <option selected disabled>Bitte auswählen</option>
-                </select>
+          <div class="form-section">
+            <div id="anmeldenForm">
+              <div class="row">
+                <div class="sm-12 md-6 col">
+                  <div class="form-group">
+                    <label for="itemInput">Mitbringen</label>
+                    <select id="itemInput" class="input-block">
+                      <option selected disabled>Bitte auswählen</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="sm-12 md-6 col">
+                  <div class="form-group">
+                    <label for="peopleInput">Anzahl Personen</label>
+                    <select id="peopleInput" class="input-block">
+                      <option selected disabled>Bitte auswählen</option>
+                      <option value="1">1 Person</option>
+                      <option value="2">2 Personen</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="sm-12 md-12 col">
+                  <div class="form-group">
+                    <label for="musicInput">Liedwunsch (optional)</label>
+                    <input
+                      class="input-block"
+                      type="text"
+                      maxlength="100"
+                      placeholder="Liedwunsch"
+                      id="musicInput"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="sm-12 md-6 col">
-              <div class="form-group">
-                <label for="peopleInput">Anzahl Personen</label>
-                <select id="peopleInput" class="input-block">
-                  <option selected disabled>Bitte auswählen</option>
-                  <option value="1">1 Person</option>
-                  <option value="2">2 Personen</option>
-                </select>
-              </div>
-            </div>
-            <div class="sm-12 md-12 col">
-              <div class="form-group">
-                <label for="musicInput">Liedwunsch (optional)</label>
-                <input
-                  class="input-block"
-                  type="text"
-                  maxlength="100"
-                  placeholder="Liedwunsch"
-                  id="musicInput"
-                />
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
+              
+              <div class="form-actions">
                 <button
                   class="btn-large btn-block"
                   type="submit"
@@ -379,7 +381,7 @@
         <div class="row hideForUser">
           <div class="col-12">
             <div class="form-group">
-              <button class="btn-large btn-block" onclick="cloudAuth()">
+              <button class="btn-large btn-block btn-cta" onclick="cloudAuth()">
                 Anmelden
               </button>
             </div>
@@ -415,35 +417,33 @@
         dann. Wichtig auch hier: Wenn ihr doch nicht könnt (weil ihr den Dackel
         füttern, im Rewe an der Kasse einspringen , oder sonst was müsst), sagt
         uns auch hier wieder ab.
-        <div
-          class="row hideForGuest"
-          id="volunteerForm"
-          style="display: none !important"
-        >
-          <div class="col-12">
-            <div class="form-group">
-              <label for="durationInput">Dauer (Von - Bis) 3-512 Zeichen</label>
-              <input
-                class="input-block"
-                type="text"
-                placeholder="Dauer"
-                id="durationInput"
-                pattern=".{3,512}"
-                required
-                title="3 bis 512 Zeichen"
-              />
+        <div class="form-section hideForGuest" id="volunteerForm" style="display: none !important">
+          <h3>Volunteer Anmeldung</h3>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="durationInput">Dauer (Von - Bis) 3-512 Zeichen</label>
+                <input
+                  class="input-block"
+                  type="text"
+                  placeholder="z.B. Freitag 14:00 - 18:00"
+                  id="durationInput"
+                  pattern=".{3,512}"
+                  required
+                  title="3 bis 512 Zeichen"
+                />
+              </div>
             </div>
           </div>
-          <div class="col-12">
-            <div class="form-group">
-              <button
-                class="btn-large btn-block"
-                type="submit"
-                id="submitVolunteer"
-              >
-                Absenden
-              </button>
-            </div>
+          
+          <div class="form-actions">
+            <button
+              class="btn-large btn-block"
+              type="submit"
+              id="submitVolunteer"
+            >
+              Volunteer Anmeldung absenden
+            </button>
           </div>
         </div>
       </div>
@@ -499,10 +499,22 @@
         </svg>
         Recap 2024
       </h2>
-      <div class="row flex-center">
-        <h2 class="row">Aftermovie</h2>
-        <a class="row" href="https://youtu.be/mhI5xlCdWws" target="_blank">
-          <img src="img/2024/aftermovie2024.jpg" />
+      <div class="aftermovie-section">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
+            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
+          </svg>
+          <h3>Aftermovie 2024</h3>
+        </div>
+        <a class="aftermovie-link" href="https://youtu.be/mhI5xlCdWws" target="_blank">
+          <div class="aftermovie-thumbnail">
+            <img src="img/2024/aftermovie2024.jpg" alt="Poolparty 2024 Aftermovie" />
+            <div class="play-overlay">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
         </a>
       </div>
 
@@ -523,10 +535,22 @@
         </svg>
         Recap 2023
       </h2>
-      <div class="row flex-center">
-        <h2 class="row">Aftermovie</h2>
-        <a class="row" href="https://youtu.be/ShR5ks7eQFM" target="_blank">
-          <img src="img/2023/aftermovie2023.jpg" />
+      <div class="aftermovie-section">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
+            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
+          </svg>
+          <h3>Aftermovie 2023</h3>
+        </div>
+        <a class="aftermovie-link" href="https://youtu.be/ShR5ks7eQFM" target="_blank">
+          <div class="aftermovie-thumbnail">
+            <img src="img/2023/aftermovie2023.jpg" alt="Poolparty 2023 Aftermovie" />
+            <div class="play-overlay">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
         </a>
       </div>
 
@@ -547,10 +571,22 @@
         </svg>
         Recap 2022
       </h2>
-      <div class="row flex-center">
-        <h2 class="row">Aftermovie</h2>
-        <a class="row" href="https://youtu.be/lGLU5Dvm_Ls" target="_blank">
-          <img src="img/2022/aftermovie2022.jpg" />
+      <div class="aftermovie-section">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
+            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
+          </svg>
+          <h3>Aftermovie 2022</h3>
+        </div>
+        <a class="aftermovie-link" href="https://youtu.be/lGLU5Dvm_Ls" target="_blank">
+          <div class="aftermovie-thumbnail">
+            <img src="img/2022/aftermovie2022.jpg" alt="Poolparty 2022 Aftermovie" />
+            <div class="play-overlay">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
         </a>
       </div>
 
@@ -571,10 +607,22 @@
         </svg>
         Recap 2021
       </h2>
-      <div class="row flex-center">
-        <h2 class="row">Aftermovie</h2>
-        <a class="row" href="https://youtu.be/ZCvVEFKuC_o" target="_blank">
-          <img src="img/2021/aftermovie2021.jpg" />
+      <div class="aftermovie-section">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
+            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
+          </svg>
+          <h3>Aftermovie 2021</h3>
+        </div>
+        <a class="aftermovie-link" href="https://youtu.be/ZCvVEFKuC_o" target="_blank">
+          <div class="aftermovie-thumbnail">
+            <img src="img/2021/aftermovie2021.jpg" alt="Poolparty 2021 Aftermovie" />
+            <div class="play-overlay">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
         </a>
       </div>
 
@@ -595,19 +643,28 @@
         </svg>
         Recap 2020
       </h2>
-      <div class="row flex-center">
-        <h2 class="row">Aftermovie</h2>
-        <img
-          class="row"
-          src="img/2020/aftermovie2020.jpg"
-          style="cursor: pointer"
-          onclick="document.getElementById('aftermovie2020').style.display = 'block'; this.style.display = 'none'; document.getElementById('aftermovie2020').src = 'https://www.youtube-nocookie.com/embed/6Qai_0gckB4?autoplay=0&fs=1&iv_load_policy=3&showinfo=1&rel=0&cc_load_policy=0&start=0&end=0'"
-        />
+      <div class="aftermovie-section">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
+            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
+          </svg>
+          <h3>Aftermovie 2020</h3>
+        </div>
+        <div class="aftermovie-link" onclick="document.getElementById('aftermovie2020').style.display = 'block'; document.getElementById('aftermovie2020-thumbnail').style.display = 'none'; document.getElementById('aftermovie2020').src = 'https://www.youtube-nocookie.com/embed/6Qai_0gckB4?autoplay=0&fs=1&iv_load_policy=3&showinfo=1&rel=0&cc_load_policy=0&start=0&end=0'">
+          <div class="aftermovie-thumbnail" id="aftermovie2020-thumbnail">
+            <img src="img/2020/aftermovie2020.jpg" alt="Poolparty 2020 Aftermovie" />
+            <div class="play-overlay">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
         <iframe
           id="aftermovie2020"
-          class="row"
+          class="aftermovie-iframe"
           style="display: none"
-          frameborder=" 0"
+          frameborder="0"
           scrolling="no"
           marginheight="0"
           marginwidth="0"
@@ -616,7 +673,6 @@
           type="text/html"
           src=""
         ></iframe>
-        <!--  -->
       </div>
 
       <div id="photos2020" class="photos">
@@ -738,7 +794,7 @@ c0.526-0.559,0.853-1.195,1.115-1.852C14.427,11.544,13.946,12.058,13.396,12.382z"
 
       <span
         >© <a href="https://jupeters.de">JP</a> &
-        <a href="https://lmf.logge.top">LMF</a> 2023</span
+        <a href="https://lmf.logge.top">LMF</a> 2025</span
       >
     </div>
 

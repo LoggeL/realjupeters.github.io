@@ -98,17 +98,27 @@ if (token && ACTIVE) {
           (registration.people > 0 ? 'en' : '') +
           ' angemeldet. Du bringst "' +
           item.name +
-          '" mit.</b></div> <br /> <div class="sm-12"> <h2>Änderungen:</h2></div>' +
-          anmeldenForm.innerHTML
+          '" mit.</b></div>' +
+          '<div class="form-section"><h3>Änderungen:</h3>' +
+          anmeldenForm.innerHTML.replace('<div class="form-actions">', '<div class="form-actions">') +
+          '</div>'
+        
         var abmeldenButon = document.createElement('button')
         abmeldenButon.innerText = 'Anmeldung zurückziehen'
-        abmeldenButon.className = 'btn-danger row'
+        abmeldenButon.className = 'btn-danger'
         abmeldenButon.onclick = () => {
-          abmeldenButon.className = 'btn-danger row'
+          abmeldenButon.className = 'btn-danger'
           abmeldenButon.innerText = 'Sicher?'
           abmeldenButon.onclick = () => unregister()
         }
-        anmeldenForm.append(abmeldenButon)
+        
+        // Add the button to the form actions
+        const formActions = anmeldenForm.querySelector('.form-actions')
+        if (formActions) {
+          formActions.appendChild(abmeldenButon)
+        } else {
+          anmeldenForm.append(abmeldenButon)
+        }
 
         if (volunteer) {
           async function volunteerAbmelden() {
@@ -130,20 +140,25 @@ if (token && ACTIVE) {
 
           var volunteerForm = document.getElementById('volunteerForm')
           volunteerForm.innerHTML =
+            '<h3>Volunteer Status</h3>' +
             '<div class="alert alert-success">Du hast dich am ' +
             new Date(volunteer.lastActivity).toLocaleDateString() +
             ' mit einer Dauer von "' +
             volunteer.duration +
-            '" angemeldet.</ br > </div > '
+            '" angemeldet.</div>' +
+            '<div class="form-actions"></div>'
+          
           var button = document.createElement('button')
-          button.innerText = 'Anmeldung zurückziehen'
-          button.className = 'btn-warning row'
+          button.innerText = 'Volunteer Anmeldung zurückziehen'
+          button.className = 'btn-warning'
           button.onclick = () => {
-            button.className = 'btn-danger row'
+            button.className = 'btn-danger'
             button.innerText = 'Sicher?'
             button.onclick = () => volunteerAbmelden()
           }
-          volunteerForm.append(button)
+          
+          const formActions = volunteerForm.querySelector('.form-actions')
+          formActions.appendChild(button)
         } else {
           document.getElementById('submitVolunteer').onclick = () => {
             var duration = document.getElementById('durationInput').value
@@ -413,3 +428,48 @@ console.info(`Wilkommen in der Entewicklerkonsole
 ~'\`~'\`~'\`~'\`~
     
 Falls dir WebDev auch Spaß macht schreib mir doch auf Discord: logge.top`)
+
+// Mobile Navigation Enhancements
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileNavCheckbox = document.getElementById('collapsibleMenu');
+  const navLinks = document.querySelectorAll('.collapsible-body a');
+  
+  // Close mobile nav when clicking any navigation link
+  navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        mobileNavCheckbox.checked = false;
+      }
+    });
+  });
+  
+  // Close mobile nav when clicking outside (on page content)
+  document.addEventListener('click', function(e) {
+    if (window.innerWidth <= 768 && mobileNavCheckbox.checked) {
+      const navElement = document.querySelector('.collapsible');
+      const navBody = document.querySelector('.collapsible-body');
+      
+      // If click is outside the navigation area, close it
+      if (!navElement.contains(e.target) && !navBody.contains(e.target)) {
+        mobileNavCheckbox.checked = false;
+      }
+    }
+  });
+  
+  // Prevent body scroll when mobile nav is open
+  mobileNavCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Close nav on window resize if moving to desktop
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && mobileNavCheckbox.checked) {
+      mobileNavCheckbox.checked = false;
+      document.body.style.overflow = '';
+    }
+  });
+});
