@@ -412,4 +412,4 @@ console.info(`Wilkommen in der Entewicklerkonsole
  \ \`- ' /    
 ~'\`~'\`~'\`~'\`~
     
-Falls dir WebDev auch Spaß macht schreib mir doch auf Discord: Logge#1337`)
+Falls dir WebDev auch Spaß macht schreib mir doch auf Discord: logge.top`)

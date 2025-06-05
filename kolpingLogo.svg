@@ -1,0 +1,50 @@
+<svg
+  id="Kolping_Logo"
+  xmlns="http://www.w3.org/2000/svg"
+  width="200"
+  height="200"
+  viewBox="0 0 200 200"
+>
+  <defs>
+    <style>
+      <![CDATA[
+      #Kolping_Logo {
+        display: block;
+        margin: auto;
+        fill: black;
+        height: 300px;
+        width: auto;
+      }
+
+      #Kolping_Logo path {
+        stroke: #000;
+        animation: drawKolping 4s 1 ease-in-out;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+      }
+
+      @keyframes drawKolping {
+        0% {
+          stroke-dashoffset: 1000;
+          fill-opacity: 0;
+        }
+
+        30% {
+          fill-opacity: 0;
+        }
+
+        85% {
+          stroke-dashoffset: 0;
+        }
+
+        100% {
+          fill-opacity: 1;
+          stroke-dashoffset: 0;
+        }
+      }
+      ]]>
+    </style>
+  </defs>
+  <path fill="#E0E722" d="M0,0H200V200H0" />
+  <path d="M0,0H60V200H0M60,100 200,0V200" />
+</svg> 
